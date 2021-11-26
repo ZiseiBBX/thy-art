@@ -1,5 +1,7 @@
+import Canvas from "./pages/Canvas";
+
 function App() {
-	return <div className="App">Thy art</div>;
+	return <Canvas />
 }
 
 export default App;
