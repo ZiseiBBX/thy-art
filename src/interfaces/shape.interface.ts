@@ -1,4 +1,4 @@
-import { IBrushProperty } from "./property.interface";
+import { IBrushProperty, ICircleProperty, IRectangleProperty } from "./property.interface";
 
 export interface ICanvasState {
 	isDrawing: boolean;
@@ -26,14 +26,12 @@ export interface IRec {
 	height: number;
 	endX?: number;
 	endY?: number;
-	color: string
-	strokeWidth: number
+	properties: IRectangleProperty
 }
 
 export interface ICirc {
 	startX: number;
 	startY: number;
 	radius: number;
-	color: string
-	strokeWidth: number
+	properties: ICircleProperty
 }

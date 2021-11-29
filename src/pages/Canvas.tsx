@@ -102,8 +102,7 @@ function Canvas() {
 					height: 0,
 					startX: point!.x,
 					startY: point!.y,
-					color: rectangleProperties.color,
-					strokeWidth: rectangleProperties.width
+					properties: rectangleProperties
 				});
 			});
 		} else if (tool === Tools.CIRCLE) {
@@ -112,8 +111,7 @@ function Canvas() {
 					startX: point!.x,
 					startY: point!.y,
 					radius: 0,
-					color: circleProperties.color,
-					strokeWidth: circleProperties.width
+					properties: circleProperties
 				});
 			});
 		}
@@ -160,14 +158,15 @@ function Canvas() {
 										y={rec.startY}
 										width={rec.width}
 										height={rec.height}
-										stroke={rec.color}
+										stroke={(rec.properties.type === "stroke" || rec.properties.type === "both") ? rec.properties.strokeColor : undefined}
 										strokeEnabled
-										strokeWidth={rec.strokeWidth}
+										strokeWidth={rec.properties.width}
+										fill={(rec.properties.type === "fill" || rec.properties.type === "both") ? rec.properties.fillColor : undefined}
 									/>
 								);
 							})}
 						</Group>
-						<Group>
+						<>
 							{state.lines.map((line, index) => {
 								return (
 									<Line
@@ -175,12 +174,12 @@ function Canvas() {
 										points={line.points}
 										globalCompositeOperation={line.composition}
 										strokeEnabled
-										stroke={line.brushProperties.color}
+										stroke={line.brushProperties.strokeColor}
 										strokeWidth={line.brushProperties.width}
 									/>
 								);
 							})}
-						</Group>
+						</>
 						<Group>
 							{state.circs.map((circ, index) => {
 								return (
@@ -190,8 +189,9 @@ function Canvas() {
 										x={circ.startX}
 										y={circ.startY}
 										strokeEnabled
-										stroke={circ.color}
-										strokeWidth={circ.strokeWidth}
+										stroke={(circ.properties.type === "stroke" || circ.properties.type === "both") ? circ.properties.strokeColor : undefined}
+										strokeWidth={circ.properties.width}
+										fill={(circ.properties.type === "fill" || circ.properties.type === "both") ? circ.properties.fillColor : undefined}
 									/>
 								);
 							})}

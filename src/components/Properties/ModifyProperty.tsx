@@ -17,9 +17,11 @@ import {
 	SliderTrack,
 	SliderFilledTrack,
 	SliderThumb,
+	RadioGroup,
+	Radio,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { IProperty } from "../../interfaces/property.interface";
+import { IProperty, ShapeType } from "../../interfaces/property.interface";
 import Tools from "../../interfaces/tools.interface";
 import useStore from "../../store/store";
 import PropertyInput from "./PropertyInput";
@@ -32,13 +34,20 @@ function ModifyProperty() {
 	const eraserProperties = useStore((state) => state.eraserProperties);
 	const rectangleProperties = useStore((state) => state.rectangleProperties);
 	const circleProperties = useStore((state) => state.circleProperties);
+
 	const modifyBrushColor = useStore((state) => state.modifyBrushColor);
 	const modifyBrushWidth = useStore((state) => state.modifyBrushWidth);
+
 	const modifyEraserColor = useStore((state) => state.modifyEraserColor);
 	const modifyEraserWidth = useStore((state) => state.modifyEraserWidth);
-	const modifyRectangleColor = useStore((state) => state.modifyRectangleColor);
+
+	const modifyRectangleStrokeColor = useStore((state) => state.modifyRectangleStrokeColor);
+	const modifyRectangleFillColor = useStore((state) => state.modifyRectangleFillColor);
 	const modifyRectangleWidth = useStore((state) => state.modifyRectangleWidth);
-	const modifyCircleColor = useStore((state) => state.modifyCircleColor);
+	const modifyRectangleType = useStore((state) => state.modifyRectangleType);
+
+	const modifyCircleStrokeColor = useStore((state) => state.modifyCircleStrokeColor);
+	const modifyCircleFillColor = useStore((state) => state.modifyCircleFillColor);
 	const modifyCircleWidth = useStore((state) => state.modifyCircleWidth);
 
 	return (
@@ -53,20 +62,48 @@ function ModifyProperty() {
 				<PopoverBody>
 					<Stack>
 						<Stack direction="row" alignItems="center">
-							<Text>Color</Text>
-							{tool === Tools.BRUSH && <PropertyInput properties={brushProperties} modify={modifyBrushColor} />}
-							{tool === Tools.ERASER && <PropertyInput properties={eraserProperties} modify={modifyEraserColor} />}
+							<Text>Stroke Color</Text>
+							{tool === Tools.BRUSH && <PropertyInput value={brushProperties.strokeColor} modify={modifyBrushColor} />}
+							{tool === Tools.ERASER && <PropertyInput value={eraserProperties.strokeColor} modify={modifyEraserColor} />}
 							{tool === Tools.RECTANGLE && (
-								<PropertyInput properties={rectangleProperties} modify={modifyRectangleColor} />
+								<PropertyInput value={rectangleProperties.strokeColor} modify={modifyRectangleStrokeColor} />
 							)}
-							{tool === Tools.CIRCLE && <PropertyInput properties={circleProperties} modify={modifyCircleColor} />}
+							{tool === Tools.CIRCLE && (
+								<PropertyInput value={circleProperties.strokeColor} modify={modifyCircleStrokeColor} />
+							)}
 						</Stack>
+						{(tool === Tools.CIRCLE || tool === Tools.RECTANGLE) && (
+							<Stack direction="row" alignItems="center">
+								<Text>Fill Color</Text>
+								{tool === Tools.RECTANGLE && (
+									<PropertyInput value={rectangleProperties.fillColor} modify={modifyRectangleFillColor} />
+								)}
+								{tool === Tools.CIRCLE && (
+									<PropertyInput value={circleProperties.fillColor} modify={modifyCircleFillColor} />
+								)}
+							</Stack>
+						)}
 						<Stack direction="row" alignItems="center">
 							<Text>Stroke Width</Text>
 							{tool === Tools.BRUSH && <PropertySlider properties={brushProperties} modify={modifyBrushWidth} />}
 							{tool === Tools.ERASER && <PropertySlider properties={eraserProperties} modify={modifyEraserWidth} />}
 							{tool === Tools.CIRCLE && <PropertySlider properties={circleProperties} modify={modifyCircleWidth} />}
-							{tool === Tools.RECTANGLE && <PropertySlider properties={rectangleProperties} modify={modifyRectangleWidth} />}
+							{tool === Tools.RECTANGLE && (
+								<PropertySlider properties={rectangleProperties} modify={modifyRectangleWidth} />
+							)}
+						</Stack>
+						<Stack direction="row" alignItems="center" width="100%">
+							<RadioGroup
+								onChange={(val: ShapeType) => modifyRectangleType(val)}
+								value={rectangleProperties.type}
+								width="100%"
+							>
+								<Stack direction="row" justifyContent="space-between" alignItems="center">
+									<Radio value="stroke">Stroke</Radio>
+									<Radio value="fill">Fill</Radio>
+									<Radio value="both">Both</Radio>
+								</Stack>
+							</RadioGroup>
 						</Stack>
 					</Stack>
 				</PopoverBody>
@@ -74,7 +111,5 @@ function ModifyProperty() {
 		</Popover>
 	);
 }
-
-
 
 export default ModifyProperty;

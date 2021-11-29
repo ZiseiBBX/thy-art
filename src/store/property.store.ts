@@ -1,88 +1,138 @@
 import produce from "immer";
 import { SetState, GetState } from "zustand";
-import { IBrushProperty, ICircleProperty, IEraserProperty, IRectangleProperty } from "../interfaces/property.interface";
+import {
+	IBrushProperty,
+	ICircleProperty,
+	IEraserProperty,
+	IRectangleProperty,
+	ShapeType,
+} from "../interfaces/property.interface";
 import { IStore } from "./store";
 
 export interface IPropertyStore {
 	brushProperties: IBrushProperty;
-  eraserProperties: IEraserProperty;
-  rectangleProperties: IRectangleProperty
-  circleProperties: ICircleProperty
+	eraserProperties: IEraserProperty;
+	rectangleProperties: IRectangleProperty;
+	circleProperties: ICircleProperty;
 
 	modifyBrushColor(color: string): void;
-  modifyBrushWidth(width: number): void;
+	modifyBrushWidth(width: number): void;
 
-  modifyEraserColor(color: string): void
-  modifyEraserWidth(width: number): void;
+	modifyEraserColor(color: string): void;
+	modifyEraserWidth(width: number): void;
 
-  modifyRectangleColor(color: string): void
-  modifyRectangleWidth(width: number): void
+	modifyRectangleStrokeColor(color: string): void;
+	modifyRectangleFillColor(color: string): void;
+	modifyRectangleWidth(width: number): void;
+	modifyRectangleType(type: ShapeType): void;
 
-  modifyCircleColor(color: string): void
-  modifyCircleWidth(width: number): void
+	modifyCircleStrokeColor(color: string): void;
+	modifyCircleFillColor(color: string): void;
+	modifyCircleWidth(width: number): void;
 }
 
 const propertyStore = (set: SetState<IStore>, get: GetState<IStore>): IPropertyStore => ({
-  eraserProperties: {
-    color: "#ffffff",
-    width: 5
-  },
-	brushProperties: {
-		color: "#000000",
+	eraserProperties: {
+		strokeColor: "#ffffff",
 		width: 5,
 	},
-  rectangleProperties: {
-    color: "#000000",
-    width: 5
-  },
-  circleProperties: {
-    color: "#000000",
-    width: 5
-  },
+	brushProperties: {
+		strokeColor: "#000000",
+		width: 5,
+	},
+	rectangleProperties: {
+		strokeColor: "#000000",
+    fillColor: "#000000",
+		width: 5,
+		type: "stroke",
+	},
+	circleProperties: {
+		strokeColor: "#000000",
+    fillColor: "#000000",
+		width: 5,
+    type: "stroke"
+	},
 
-  modifyBrushColor: (color) => {
-    set(produce((state: IPropertyStore) => {
-      state.brushProperties.color = color
-    }))
-  },
-  modifyBrushWidth: (width) => {
-    set(produce((state: IPropertyStore) => {
-      state.brushProperties.width = width
-    }))
-  },
+	modifyBrushColor: (color) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.brushProperties.strokeColor = color;
+			})
+		);
+	},
+	modifyBrushWidth: (width) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.brushProperties.width = width;
+			})
+		);
+	},
 
-  modifyEraserColor: (color) => {
-    set(produce((state: IPropertyStore) => {
-      state.eraserProperties.color = color
-    }))
-  },
-  modifyEraserWidth: (width) => {
-    set(produce((state: IPropertyStore) => {
-      state.eraserProperties.width = width
-    }))
-  },
+	modifyEraserColor: (color) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.eraserProperties.strokeColor = color;
+			})
+		);
+	},
+	modifyEraserWidth: (width) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.eraserProperties.width = width;
+			})
+		);
+	},
 
-  modifyRectangleColor: (color) => {
-    set(produce((state: IPropertyStore) => {
-      state.rectangleProperties.color = color
-    }))
-  },
-  modifyRectangleWidth: (width) => {
-    set(produce((state: IPropertyStore) => {
-      state.rectangleProperties.width = width
-    }))
-  },
+	modifyRectangleStrokeColor: (color) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.rectangleProperties.strokeColor = color;
+			})
+		);
+	},
+  modifyRectangleFillColor: (color) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.rectangleProperties.fillColor = color;
+			})
+		);
+	},
+	modifyRectangleWidth: (width) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.rectangleProperties.width = width;
+			})
+		);
+	},
+	modifyRectangleType: (type) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.rectangleProperties.type = type;
+			})
+		);
+	},
 
-  modifyCircleColor: (color) => {
-    set(produce((state: IPropertyStore) => {
-      state.circleProperties.color = color
-    }))
-  },
-  modifyCircleWidth: (width) => {
-    set(produce((state: IPropertyStore) => {
-      state.circleProperties.width = width
-    }))
-  }
+	modifyCircleStrokeColor: (color) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.circleProperties.strokeColor = color;
+			})
+		);
+	},
+  modifyCircleFillColor: (color) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.circleProperties.fillColor = color;
+			})
+		);
+	},
+	modifyCircleWidth: (width) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.circleProperties.width = width;
+			})
+		);
+	},
 });
 
 export default propertyStore;

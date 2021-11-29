@@ -1,15 +1,15 @@
 import { Input } from "@chakra-ui/react";
-import { IProperty } from "../../interfaces/property.interface";
+import { IProperty, ShapeType } from "../../interfaces/property.interface";
 
 interface IPropertyInputProps {
-	properties: IProperty;
+	value: string;
 	modify(color: string): void;
 }
 
 function PropertyInput(props: IPropertyInputProps) {
 	return (
 		<Input
-			value={props.properties.color}
+			value={props.value}
 			type="color"
 			onChange={(e) => {
 				props.modify(e.target.value);
