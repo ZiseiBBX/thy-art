@@ -1,7 +1,4 @@
-import {
-	Flex,
-	Box,
-} from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
 import { useRef } from "react";
 import { useImmer } from "use-immer";
 import ModifyProperty from "./components/Properties/ModifyProperty";

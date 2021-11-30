@@ -166,20 +166,6 @@ function Canvas() {
 								);
 							})}
 						</Group>
-						<>
-							{state.lines.map((line, index) => {
-								return (
-									<Line
-										key={index}
-										points={line.points}
-										globalCompositeOperation={line.composition}
-										strokeEnabled
-										stroke={line.brushProperties.strokeColor}
-										strokeWidth={line.brushProperties.width}
-									/>
-								);
-							})}
-						</>
 						<Group>
 							{state.circs.map((circ, index) => {
 								return (
@@ -192,6 +178,20 @@ function Canvas() {
 										stroke={(circ.properties.type === "stroke" || circ.properties.type === "both") ? circ.properties.strokeColor : undefined}
 										strokeWidth={circ.properties.width}
 										fill={(circ.properties.type === "fill" || circ.properties.type === "both") ? circ.properties.fillColor : undefined}
+									/>
+								);
+							})}
+						</Group>
+						<Group>
+							{state.lines.map((line, index) => {
+								return (
+									<Line
+										key={index}
+										points={line.points}
+										globalCompositeOperation={line.composition}
+										strokeEnabled
+										stroke={line.brushProperties.strokeColor}
+										strokeWidth={line.brushProperties.width}
 									/>
 								);
 							})}

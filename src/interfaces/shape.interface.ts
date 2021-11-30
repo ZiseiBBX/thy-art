@@ -24,8 +24,6 @@ export interface IRec {
 	startY: number;
 	width: number;
 	height: number;
-	endX?: number;
-	endY?: number;
 	properties: IRectangleProperty
 }
 

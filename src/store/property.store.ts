@@ -29,6 +29,7 @@ export interface IPropertyStore {
 	modifyCircleStrokeColor(color: string): void;
 	modifyCircleFillColor(color: string): void;
 	modifyCircleWidth(width: number): void;
+	modifyCircleType(type: ShapeType): void;
 }
 
 const propertyStore = (set: SetState<IStore>, get: GetState<IStore>): IPropertyStore => ({
@@ -42,15 +43,15 @@ const propertyStore = (set: SetState<IStore>, get: GetState<IStore>): IPropertyS
 	},
 	rectangleProperties: {
 		strokeColor: "#000000",
-    fillColor: "#000000",
+		fillColor: "#000000",
 		width: 5,
 		type: "stroke",
 	},
 	circleProperties: {
 		strokeColor: "#000000",
-    fillColor: "#000000",
+		fillColor: "#000000",
 		width: 5,
-    type: "stroke"
+		type: "stroke",
 	},
 
 	modifyBrushColor: (color) => {
@@ -90,7 +91,7 @@ const propertyStore = (set: SetState<IStore>, get: GetState<IStore>): IPropertyS
 			})
 		);
 	},
-  modifyRectangleFillColor: (color) => {
+	modifyRectangleFillColor: (color) => {
 		set(
 			produce((state: IPropertyStore) => {
 				state.rectangleProperties.fillColor = color;
@@ -119,7 +120,7 @@ const propertyStore = (set: SetState<IStore>, get: GetState<IStore>): IPropertyS
 			})
 		);
 	},
-  modifyCircleFillColor: (color) => {
+	modifyCircleFillColor: (color) => {
 		set(
 			produce((state: IPropertyStore) => {
 				state.circleProperties.fillColor = color;
@@ -130,6 +131,13 @@ const propertyStore = (set: SetState<IStore>, get: GetState<IStore>): IPropertyS
 		set(
 			produce((state: IPropertyStore) => {
 				state.circleProperties.width = width;
+			})
+		);
+	},
+	modifyCircleType: (type) => {
+		set(
+			produce((state: IPropertyStore) => {
+				state.circleProperties.type = type;
 			})
 		);
 	},

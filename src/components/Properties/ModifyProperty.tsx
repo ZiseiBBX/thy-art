@@ -25,6 +25,7 @@ import { IProperty, ShapeType } from "../../interfaces/property.interface";
 import Tools from "../../interfaces/tools.interface";
 import useStore from "../../store/store";
 import PropertyInput from "./PropertyInput";
+import PropertyRadio from "./PropertyRadio";
 import PropertySlider from "./PropertySlider";
 
 function ModifyProperty() {
@@ -49,6 +50,7 @@ function ModifyProperty() {
 	const modifyCircleStrokeColor = useStore((state) => state.modifyCircleStrokeColor);
 	const modifyCircleFillColor = useStore((state) => state.modifyCircleFillColor);
 	const modifyCircleWidth = useStore((state) => state.modifyCircleWidth);
+	const modifyCircleType = useStore((state) => state.modifyCircleType);
 
 	return (
 		<Popover>
@@ -92,19 +94,8 @@ function ModifyProperty() {
 								<PropertySlider properties={rectangleProperties} modify={modifyRectangleWidth} />
 							)}
 						</Stack>
-						<Stack direction="row" alignItems="center" width="100%">
-							<RadioGroup
-								onChange={(val: ShapeType) => modifyRectangleType(val)}
-								value={rectangleProperties.type}
-								width="100%"
-							>
-								<Stack direction="row" justifyContent="space-between" alignItems="center">
-									<Radio value="stroke">Stroke</Radio>
-									<Radio value="fill">Fill</Radio>
-									<Radio value="both">Both</Radio>
-								</Stack>
-							</RadioGroup>
-						</Stack>
+						{tool === Tools.RECTANGLE && <PropertyRadio value={rectangleProperties.type} modify={modifyRectangleType} />}
+						{tool === Tools.CIRCLE && <PropertyRadio value={circleProperties.type} modify={modifyCircleType} />}
 					</Stack>
 				</PopoverBody>
 			</PopoverContent>
