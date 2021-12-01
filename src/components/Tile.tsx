@@ -13,10 +13,13 @@ function Tile(props: ITileProps) {
 
 	return (
 		<Button
-			style={{
+			isFullWidth
+			_focus={{ boxShadow: "none" }}
+			sx={{
 				borderRadius: 0,
-				border: "1px solid white"
-			}}
+				backgroundColor: active && "red",
+			 }}
+			variant="ghost"
 			onClick={props.onClick}
 		>
 			{props.content}

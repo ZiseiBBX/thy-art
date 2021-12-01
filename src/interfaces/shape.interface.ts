@@ -1,9 +1,7 @@
 import { IBrushProperty, ICircleProperty, IRectangleProperty } from "./property.interface";
 
 export interface ICanvasState {
-	lines: ILine[]
 	circs: ICirc[]
-	recs: IRec[]
 }
 
 export interface IPoint {
