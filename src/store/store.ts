@@ -13,4 +13,6 @@ const useStore = create<IStore>((set, get) => ({
   ...propertyStore(set, get)
 }))
 
+export const selectTool = (state: IStore) => state.tool
+
 export default useStore

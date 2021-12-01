@@ -15,6 +15,7 @@ function App() {
 		<Flex height="100vh" width="100%" overflow="hidden">
 			<Box>
 				<Flex flexDirection="column">
+					<ModifyProperty />
 					<Tile content="B" tool={Tools.BRUSH} onClick={() => changeTool("Brush")} />
 					<Tile content="E" tool={Tools.ERASER} onClick={() => changeTool("Eraser")} />
 					<Tile content="R" tool={Tools.RECTANGLE} onClick={() => changeTool("Rectangle")} />

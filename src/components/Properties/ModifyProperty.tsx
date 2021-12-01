@@ -55,7 +55,7 @@ function ModifyProperty() {
 	return (
 		<Popover>
 			<PopoverTrigger>
-				<Button>Properties</Button>
+				<Button>P</Button>
 			</PopoverTrigger>
 			<PopoverContent>
 				<PopoverArrow />
