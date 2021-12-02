@@ -38,7 +38,7 @@ function App() {
 	return (
 		<Flex height="100vh" width="100%" overflow="hidden">
 			<Box>
-				<Flex flexDirection="column" justifyContent="center" alignItems="center" width="150px" height="100%">
+				<Flex flexDirection="column" justifyContent="center" alignItems="center" width="160px" height="100%">
 					<Text mt={4} mb={4} fontSize="1.3rem" fontWeight="700">Thy Art</Text>
 					<Divider />
 					<Tile content="Brush" tool={Tools.BRUSH} onClick={() => changeTool("Brush")} />
@@ -47,7 +47,7 @@ function App() {
 					<Tile content="Circle" tool={Tools.CIRCLE} onClick={() => changeTool("Circle")} />
 					<Divider />
 					<Spacer />
-					<Tile content="Properties" onClick={onOpen}></Tile>
+					<Tile content={"${tool} Properties"} onClick={onOpen}></Tile>
 					<Tile content="Clear" onClick={clearShapes}></Tile>
 					<Box mt={10}></Box>
 				</Flex>

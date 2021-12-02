@@ -5,13 +5,14 @@ import App from "./App";
 import "./index.css";
 import { enablePatches } from "immer";
 import { useStrictMode } from 'react-konva';
+import theme from "./theme";
 
 useStrictMode(true);
 enablePatches();
 
 ReactDOM.render(
 	<React.StrictMode>
-		<ChakraProvider>
+		<ChakraProvider theme={theme}>
 			<App />
 		</ChakraProvider>
 	</React.StrictMode>,
