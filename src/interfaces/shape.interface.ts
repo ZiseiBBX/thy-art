@@ -1,24 +1,23 @@
 import { IBrushProperty, ICircleProperty, IProperty, IRectangleProperty } from "./property.interface";
 
 export type BrushMode = "Brush" | "Eraser";
-
-export interface ICanvasState {
-	circs: ICirc[]
+export type ToolType = "Line" | "Eraser" | "Circle" | "Rectangle" | "Delete"
+export interface IShape {
+	type: ToolType
 }
-
 export interface IPoint {
 	x: number;
 	y: number;
 }
 
-export interface ILine {
+export interface ILine extends IShape {
 	mode: BrushMode;
 	composition: "source-over" | "destination-out";
 	properties: IProperty;
 	points: number[];
 }
 
-export interface IRec {
+export interface IRec extends IShape {
 	startX: number;
 	startY: number;
 	width: number;
@@ -26,7 +25,7 @@ export interface IRec {
 	properties: IRectangleProperty
 }
 
-export interface ICirc {
+export interface ICirc extends IShape {
 	startX: number;
 	startY: number;
 	radius: number;

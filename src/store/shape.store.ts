@@ -18,6 +18,10 @@ export interface IShapeStore {
 	updateRec(point: IPoint): void;
 	updateCirc(point: IPoint): void;
 
+	removeLine(index: number): void
+	removeRec(index: number): void
+	removeCirc(index: number): void
+
 	clearShapes(): void;
 }
 
@@ -34,6 +38,7 @@ const shapeStore = (set: SetState<IStore>, get: GetState<IStore>): IShapeStore =
 					mode: mode,
 					properties: mode === "Brush" ? get().brushProperties : get().eraserProperties,
 					points: [point.x, point.y, point.x, point.y],
+					type: "Line"
 				});
 			})
 		);
@@ -47,6 +52,7 @@ const shapeStore = (set: SetState<IStore>, get: GetState<IStore>): IShapeStore =
 					startX: point.x,
 					startY: point.y,
 					properties: get().rectangleProperties,
+					type: "Rectangle"
 				});
 			})
 		);
@@ -59,6 +65,7 @@ const shapeStore = (set: SetState<IStore>, get: GetState<IStore>): IShapeStore =
 					startY: point!.y,
 					radius: 0,
 					properties: get().circleProperties,
+					type: "Circle"
 				});
 			})
 		);
@@ -90,6 +97,22 @@ const shapeStore = (set: SetState<IStore>, get: GetState<IStore>): IShapeStore =
 				draft.circs[curIndex].radius = rad < 0 ? 0 : rad;
 			})
 		);
+	},
+
+	removeLine(index) {
+		set(produce((draft: IStore) => {
+			draft.lines.splice(index, 1)
+		}))
+	},
+	removeRec(index) {
+		set(produce((draft: IStore) => {
+			draft.recs.splice(index, 1)
+		}))
+	},
+	removeCirc(index) {
+		set(produce((draft: IStore) => {
+			draft.circs.splice(index, 1)
+		}))
 	},
 
 	clearShapes() {

@@ -40,15 +40,15 @@ function App() {
 			<Box>
 				<Flex flexDirection="column" justifyContent="center" alignItems="center" width="160px" height="100%">
 					<Text mt={4} mb={4} fontSize="1.3rem" fontWeight="700">Thy Art</Text>
+					<Tile content="Brush" tool={Tools.BRUSH} onClick={() => changeTool(Tools.BRUSH)} />
+					{/* <Tile content="Eraser" tool={Tools.ERASER} onClick={() => changeTool("Eraser")} /> */}
+					<Tile content="Rectangle" tool={Tools.RECTANGLE} onClick={() => changeTool(Tools.RECTANGLE)} />
+					<Tile content="Circle" tool={Tools.CIRCLE} onClick={() => changeTool(Tools.CIRCLE)} />
 					<Divider />
-					<Tile content="Brush" tool={Tools.BRUSH} onClick={() => changeTool("Brush")} />
-					<Tile content="Eraser" tool={Tools.ERASER} onClick={() => changeTool("Eraser")} />
-					<Tile content="Rectangle" tool={Tools.RECTANGLE} onClick={() => changeTool("Rectangle")} />
-					<Tile content="Circle" tool={Tools.CIRCLE} onClick={() => changeTool("Circle")} />
-					<Divider />
+					<Tile content="Delete Shape" tool={Tools.DELETE} onClick={() => changeTool(Tools.DELETE)} />
 					<Spacer />
-					<Tile content={`${tool} Properties`} onClick={onOpen}></Tile>
-					<Tile content="Clear" onClick={clearShapes}></Tile>
+					{tool !== Tools.DELETE && <Tile content={`${tool} Properties`} onClick={onOpen}></Tile>}
+					<Tile content="Clear" onClick={clearShapes} />
 					<Box mt={10}></Box>
 				</Flex>
 			</Box>

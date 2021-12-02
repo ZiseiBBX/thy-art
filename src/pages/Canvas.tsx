@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Stage, Layer, Rect, Circle, Line, Group } from "react-konva";
 import useStore from "../store/store";
 import Tools from "../interfaces/tools.interface";
-import { IPoint } from "../interfaces/shape.interface";
+import { IPoint, ToolType } from "../interfaces/shape.interface";
 import { Vector2d } from "konva/lib/types";
 interface ICanvasProps {
 	height: number;
@@ -19,14 +19,17 @@ function Canvas({ height, width }: ICanvasProps) {
 	const lines = useStore((state) => state.lines);
 	const addLine = useStore((state) => state.addLine);
 	const updateLine = useStore((state) => state.updateLine);
+	const removeLine = useStore((state) => state.removeLine);
 
 	const recs = useStore((state) => state.recs);
 	const addRec = useStore((state) => state.addRec);
 	const updateRec = useStore((state) => state.updateRec);
+	const removeRec = useStore((state) => state.removeRec);
 
 	const circs = useStore((state) => state.circs);
 	const addCirc = useStore((state) => state.addCirc);
 	const updateCirc = useStore((state) => state.updateCirc);
+	const removeCirc = useStore((state) => state.removeCirc);
 
 	const stageRef = useRef<StageRef>(null);
 
@@ -47,8 +50,6 @@ function Canvas({ height, width }: ICanvasProps) {
 
 		if (tool === Tools.BRUSH) {
 			updateLine(point);
-		} else if (tool === Tools.ERASER) {
-			updateLine(point);
 		} else if (tool === Tools.RECTANGLE) {
 			updateRec(point);
 		} else if (tool === Tools.CIRCLE) {
@@ -64,8 +65,6 @@ function Canvas({ height, width }: ICanvasProps) {
 
 		if (tool === Tools.BRUSH) {
 			addLine(point, "Brush");
-		} else if (tool === Tools.ERASER) {
-			addLine(point, "Eraser");
 		} else if (tool === Tools.RECTANGLE) {
 			addRec(point);
 		} else if (tool === Tools.CIRCLE) {
@@ -75,6 +74,14 @@ function Canvas({ height, width }: ICanvasProps) {
 
 	const handleMouseUp = () => {
 		setIsDrawing(false);
+	};
+
+	const removeShape = (type: ToolType, index: number) => {
+		if (tool === Tools.DELETE) {
+			if (type === "Line") removeLine(index);
+			else if (type === "Rectangle") removeRec(index);
+			else if (type === "Circle") removeCirc(index);
+		}
 	};
 
 	return (
@@ -112,6 +119,12 @@ function Canvas({ height, width }: ICanvasProps) {
 										? rec.properties.fillColor
 										: undefined
 								}
+								onClick={() => {
+									removeShape("Rectangle", index);
+								}}
+								onTap={() => {
+									removeShape("Rectangle", index);
+								}}
 							/>
 						);
 					})}
@@ -136,6 +149,12 @@ function Canvas({ height, width }: ICanvasProps) {
 										? circ.properties.fillColor
 										: undefined
 								}
+								onClick={() => {
+									removeShape("Circle", index);
+								}}
+								onTap={() => {
+									removeShape("Circle", index);
+								}}
 							/>
 						);
 					})}
@@ -144,12 +163,19 @@ function Canvas({ height, width }: ICanvasProps) {
 					{lines.map((line, index) => {
 						return (
 							<Line
+								id={`${line.mode}${index}`}
 								key={index}
 								points={line.points}
 								globalCompositeOperation={line.composition}
 								strokeEnabled
 								stroke={line.properties.strokeColor}
 								strokeWidth={line.properties.width}
+								onClick={() => {
+									removeShape("Line", index);
+								}}
+								onTap={() => {
+									removeShape("Line", index);
+								}}
 							/>
 						);
 					})}
