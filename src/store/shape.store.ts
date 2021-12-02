@@ -1,11 +1,9 @@
 import produce from "immer";
 import { SetState, GetState } from "zustand";
 import { IProperty } from "../interfaces/property.interface";
-import { ICirc, ILine, IPoint, IRec } from "../interfaces/shape.interface";
+import { BrushMode, ICirc, ILine, IPoint, IRec } from "../interfaces/shape.interface";
 import Tools from "../interfaces/tools.interface";
 import { IStore } from "./store";
-
-type BrushMode = "Brush" | "Eraser";
 
 export interface IShapeStore {
 	lines: ILine[];
@@ -34,7 +32,7 @@ const shapeStore = (set: SetState<IStore>, get: GetState<IStore>): IShapeStore =
 				draft.lines.push({
 					composition: mode === "Brush" ? "source-over" : "destination-out",
 					mode: mode,
-					brushProperties: get().brushProperties,
+					properties: mode === "Brush" ? get().brushProperties : get().eraserProperties,
 					points: [point.x, point.y, point.x, point.y],
 				});
 			})

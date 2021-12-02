@@ -1,4 +1,6 @@
-import { IBrushProperty, ICircleProperty, IRectangleProperty } from "./property.interface";
+import { IBrushProperty, ICircleProperty, IProperty, IRectangleProperty } from "./property.interface";
+
+export type BrushMode = "Brush" | "Eraser";
 
 export interface ICanvasState {
 	circs: ICirc[]
@@ -10,9 +12,9 @@ export interface IPoint {
 }
 
 export interface ILine {
-	mode: string;
+	mode: BrushMode;
 	composition: "source-over" | "destination-out";
-	brushProperties: IBrushProperty;
+	properties: IProperty;
 	points: number[];
 }
 

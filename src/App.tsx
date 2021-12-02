@@ -47,7 +47,7 @@ function App() {
 					<Tile content="Circle" tool={Tools.CIRCLE} onClick={() => changeTool("Circle")} />
 					<Divider />
 					<Spacer />
-					<Tile content={"${tool} Properties"} onClick={onOpen}></Tile>
+					<Tile content={`${tool} Properties`} onClick={onOpen}></Tile>
 					<Tile content="Clear" onClick={clearShapes}></Tile>
 					<Box mt={10}></Box>
 				</Flex>

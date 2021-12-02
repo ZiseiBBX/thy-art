@@ -37,7 +37,7 @@ function Canvas({ height, width }: ICanvasProps) {
 		};
 	};
 
-	const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
+	const handleMouseMove = () => {
 		if (!isDrawing) {
 			return;
 		}
@@ -56,7 +56,7 @@ function Canvas({ height, width }: ICanvasProps) {
 		}
 	};
 
-	const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
+	const handleMouseDown = () => {
 		const p = stageRef.current!.getPointerPosition();
 		const point = getPoint(p);
 
@@ -73,7 +73,7 @@ function Canvas({ height, width }: ICanvasProps) {
 		}
 	};
 
-	const handleMouseUp = (e: KonvaEventObject<MouseEvent>) => {
+	const handleMouseUp = () => {
 		setIsDrawing(false);
 	};
 
@@ -85,6 +85,9 @@ function Canvas({ height, width }: ICanvasProps) {
 			onMouseMove={handleMouseMove}
 			onMouseUp={handleMouseUp}
 			onMouseDown={handleMouseDown}
+			onTouchStart={handleMouseDown}
+			onTouchMove={handleMouseMove}
+			onTouchEnd={handleMouseUp}
 		>
 			<Layer>
 				<Rect x={0} y={0} width={width} height={height} fill="white" />
@@ -145,8 +148,8 @@ function Canvas({ height, width }: ICanvasProps) {
 								points={line.points}
 								globalCompositeOperation={line.composition}
 								strokeEnabled
-								stroke={line.brushProperties.strokeColor}
-								strokeWidth={line.brushProperties.width}
+								stroke={line.properties.strokeColor}
+								strokeWidth={line.properties.width}
 							/>
 						);
 					})}
